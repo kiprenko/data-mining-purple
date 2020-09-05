@@ -3,6 +3,7 @@ import re
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import json
 
 FILE_NAME = 'sms-spam-corpus.csv'
 MESSAGE_TYPE = 'v1'
@@ -48,6 +49,14 @@ if __name__ == '__main__':
                     else:
                         ham_dict[word] = 1
 
+    ham_dict.pop()
+
     print('Spam dictionary length: ' + len(spam_dict).__str__())
     print('Ham dictionary length: ' + len(ham_dict).__str__())
+
+    with open('spam-words.json', 'w') as file:
+        file.write(json.dumps(sorted(spam_dict.items(), key=lambda x: x[1], reverse=True)))
+
+    with open('ham-words.json', 'w') as file:
+        file.write(json.dumps(sorted(ham_dict.items(), key=lambda x: x[1], reverse=True)))
 
