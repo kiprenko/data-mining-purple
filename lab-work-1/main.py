@@ -49,8 +49,10 @@ if __name__ == '__main__':
                     else:
                         ham_dict[word] = 1
 
-    ham_dict.pop()
-
+    ham_dict.pop("gt")
+    ham_dict.pop("lt")
+    spam_dict.pop("gt")
+    spam_dict.pop("lt")
     print('Spam dictionary length: ' + len(spam_dict).__str__())
     print('Ham dictionary length: ' + len(ham_dict).__str__())
 
