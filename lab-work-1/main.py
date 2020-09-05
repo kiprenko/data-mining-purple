@@ -32,6 +32,7 @@ if __name__ == '__main__':
         message_ = re.sub(r'[^a-zA-Z0-9]+', ' ', message_)
         message_ = message_.lower()
         stop_words = set(stopwords.words('english'))
+        stop_words.update(['lt', 'gt'])
         word_tokens = word_tokenize(message_)
         filtered_sentence = []
 
@@ -49,12 +50,8 @@ if __name__ == '__main__':
                     else:
                         ham_dict[word] = 1
 
-    ham_dict.pop("gt")
-    ham_dict.pop("lt")
-    spam_dict.pop("gt")
-    spam_dict.pop("lt")
-    print('Spam dictionary length: ' + len(spam_dict).__str__())
-    print('Ham dictionary length: ' + len(ham_dict).__str__())
+    print('Spam dictionary length: ' + str(len(spam_dict)))
+    print('Ham dictionary length: ' + str(len(ham_dict)))
 
     with open('spam-words.json', 'w') as file:
         file.write(json.dumps(sorted(spam_dict.items(), key=lambda x: x[1], reverse=True)))
