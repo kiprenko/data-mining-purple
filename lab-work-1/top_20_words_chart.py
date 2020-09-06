@@ -15,8 +15,9 @@ def show_top_20_words(file_name, title='No name'):
     frequent_spam_words = [word[0] for word in frequent_spam_words_stat]
     frequent_spam_counts = [word[1] for word in frequent_spam_words_stat]
     ypos = np.arange(len(frequent_spam_words))
+    plt.style.use('fivethirtyeight')
     plt.yticks(ypos, frequent_spam_words)
-    plt.barh(ypos, frequent_spam_counts, color='green')
+    plt.barh(ypos, frequent_spam_counts, color='#ff2e63')
     plt.xlabel('count')
     plt.ylabel('words')
     plt.title(title)
