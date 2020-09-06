@@ -20,7 +20,7 @@ def show_avg_words_len(file_name, title='No name'):
             len_dict[wlen] = 1
     ypos = np.arange(len(len_dict))
     plt.yticks(ypos, len_dict.keys())
-    plt.barh(ypos, len_dict.values())
+    plt.barh(ypos, len_dict.values(), color='maroon')
     plt.xlabel('count of words')
     plt.ylabel('letters count')
     plt.title(title)
