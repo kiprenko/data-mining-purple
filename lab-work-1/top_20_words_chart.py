@@ -20,7 +20,6 @@ def show_top_20_words(file_name, title='No name'):
     plt.xlabel('words')
     plt.ylabel('count')
     plt.title(title)
-
     plt.show()
 
 
