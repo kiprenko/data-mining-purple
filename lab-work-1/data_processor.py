@@ -1,5 +1,7 @@
 import csv
 import re
+from collections import Counter
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
@@ -47,20 +49,40 @@ def stem(string):
 
 
 DATA_FILE_NAME = 'sms-spam-corpus.csv'
+SPAM_OUTPUT_FILE = 'spam_words.csv'
+HAM_OUTPUT_FILE = 'ham_words.csv'
 STOP_WORDS_FILE_NAME = 'stop_words.txt'
 MSG_TYPE_KEY = 'v1'
 MSG_KEY = 'v2'
+SPAM = 'spam'
+HAM = 'ham'
 
 SPEC_SYMBOLS_RGX = 'amp;|gt;|lt;|[=!,*)@#%(&$_?.^:;/\\\\"\'\\-]'
 NUMBERS_RGX = '[0-9]'
 STOP_WORDS = get_stopwords()
 ps = PorterStemmer()
 
+
+def write_to_file(list, f_name):
+    with open(f_name, 'w', newline='') as f:
+        fieldnames = ['word', 'count']
+        csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
+        csv_writer.writeheader()
+        for key, value in list:
+            csv_writer.writerow({'word': key, 'count': value})
+
+
 if __name__ == '__main__':
     with open(DATA_FILE_NAME) as csv_file:
         csv_reader = csv.DictReader(csv_file)
-
+        spam_w_counter = Counter()
+        ham_w_counter = Counter()
         for row in csv_reader:
-            msg = row[MSG_KEY]
-            msg = process_str(msg)
-            print(msg)
+            tokenized_msg = word_tokenize(process_str(row[MSG_KEY]))
+            if row[MSG_TYPE_KEY] == SPAM:
+                spam_w_counter.update(tokenized_msg)
+            else:
+                ham_w_counter.update(tokenized_msg)
+
+        write_to_file(spam_w_counter.most_common(), SPAM_OUTPUT_FILE)
+        write_to_file(ham_w_counter.most_common(), HAM_OUTPUT_FILE)
