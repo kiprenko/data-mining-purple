@@ -1,6 +1,7 @@
 import csv
 import re
 from collections import Counter
+import os
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -49,6 +50,7 @@ def stem(string):
 
 
 DATA_FILE_NAME = 'sms-spam-corpus.csv'
+OUTPUT_DIR = 'output'
 SPAM_OUTPUT_FILE = 'spam_words.csv'
 HAM_OUTPUT_FILE = 'ham_words.csv'
 STOP_WORDS_FILE_NAME = 'stop_words.txt'
@@ -64,7 +66,9 @@ ps = PorterStemmer()
 
 
 def write_to_file(list, f_name):
-    with open(f_name, 'w', newline='') as f:
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+    with open(OUTPUT_DIR + '/' + f_name, 'w', newline='') as f:
         fieldnames = ['word', 'count']
         csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
         csv_writer.writeheader()
