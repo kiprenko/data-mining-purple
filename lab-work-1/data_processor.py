@@ -76,7 +76,7 @@ def write_to_file(list, f_name):
             csv_writer.writerow({'word': key, 'count': value})
 
 
-if __name__ == '__main__':
+def main():
     with open(DATA_FILE_NAME) as csv_file:
         csv_reader = csv.DictReader(csv_file)
         spam_w_counter = Counter()
@@ -90,3 +90,7 @@ if __name__ == '__main__':
 
         write_to_file(spam_w_counter.most_common(), SPAM_OUTPUT_FILE)
         write_to_file(ham_w_counter.most_common(), HAM_OUTPUT_FILE)
+
+
+if __name__ == '__main__':
+    main()
