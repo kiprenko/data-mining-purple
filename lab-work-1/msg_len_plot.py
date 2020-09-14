@@ -44,7 +44,7 @@ def draw_chart(cnter, msg_type):
     count_of_words = [c[0] for c in cnter]
     x_indexes = np.arange(len(count_of_words))
     plt.xticks(x_indexes, count_of_words)
-    plt.bar(x_indexes, [c[1] for c in cnter], color='#006a71', label='count of words by length')
+    plt.bar(x_indexes, [c[1] for c in cnter], color='#006a71', label='count of msg by length')
     plt.xlabel("message length")
     plt.ylabel("count of messages")
     plt.show()
