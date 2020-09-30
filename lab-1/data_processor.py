@@ -51,8 +51,8 @@ def stem(string):
 
 DATA_FILE_NAME = 'sms-spam-corpus.csv'
 OUTPUT_DIR = 'output'
-SPAM_OUTPUT_FILE = 'spam_words.csv'
-HAM_OUTPUT_FILE = 'ham_words.csv'
+SPAM_OUTPUT_FILE = 'spam_words_count.csv'
+HAM_OUTPUT_FILE = 'ham_words_count.csv'
 STOP_WORDS_FILE_NAME = 'stop_words.txt'
 MSG_TYPE_KEY = 'v1'
 MSG_KEY = 'v2'
