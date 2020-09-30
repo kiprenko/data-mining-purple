@@ -32,18 +32,18 @@ class TrainingDataProcessor:
         print('Training data was successfully loaded\nCalculating probability for both spam and ham...')
         spam_probability = self.calc_probability(spam_word_count, message)
         ham_probability = self.calc_probability(ham_word_count, message)
-        print(f'\nSpam probability is "{spam_probability}"\nHam probability is "{ham_probability}"\n'
+        print(f'Spam probability is "{spam_probability}"\nHam probability is "{ham_probability}"\n'
               f'Making normalization...')
         probabilities_sum = spam_probability + ham_probability
         spam_probability_normalized = spam_probability / probabilities_sum
         ham_probability_normalized = ham_probability / probabilities_sum
-        print(f'\nNormalized:\n'
+        print(f'Normalized:\n'
               f'Spam probability is "{spam_probability_normalized}"\nHam probability is "{ham_probability_normalized}"'
               f'\nClassifying the message...')
         if spam_probability_normalized > ham_probability_normalized:
-            print(f'The message "{original_message}" is a spam')
+            print(f'The message "{original_message}" is a SPAM')
         else:
-            print(f'The message "{original_message}" is a ham')
+            print(f'The message "{original_message}" is a HAM')
 
     def __load_training_data(self, file_name):
         word_count = {}
