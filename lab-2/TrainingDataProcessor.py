@@ -32,6 +32,10 @@ class TrainingDataProcessor:
         print('Training data was successfully loaded\nCalculating probability for both spam and ham...')
         spam_probability = self.calc_probability(spam_word_count, message)
         ham_probability = self.calc_probability(ham_word_count, message)
+        if spam_probability == -1 and ham_probability == -1:
+            print("The words in the message are unknown for both dictionaries, so it should be HAM.")
+            return
+
         print(f'Spam probability is "{spam_probability}"\nHam probability is "{ham_probability}"\n'
               f'Making normalization...')
         probabilities_sum = spam_probability + ham_probability
@@ -56,6 +60,8 @@ class TrainingDataProcessor:
     def calc_probability(self, word_count_dict, message):
         total_words_count = self.get_total_words_count(word_count_dict)
         unknown_words_count = self.get_unknown_words_count(message, word_count_dict)
+        if unknown_words_count == len(message):
+            return -1
         percent = 1
         for word in message:
             w_count = 0
