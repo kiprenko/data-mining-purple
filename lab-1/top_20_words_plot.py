@@ -20,19 +20,20 @@ def draw_chart(f_name, msg_type):
     with open(f_name) as csv_file:
         csv_reader = csv.DictReader(csv_file)
         words = []
-        frequency = []
+        frequencies = []
         for row in csv_reader:
             words.append(row[WORD])
-            frequency.append(row[COUNT])
+            frequencies.append(row[COUNT])
         plt.style.use('fivethirtyeight')
         plt.title(TITLE.format(msg_type))
         words = words[0:20]
         words.reverse()
-        frequency = frequency[:20]
-        frequency.reverse()
+        total_count_of_w = sum([int(frequency) for frequency in frequencies])
+        frequencies = [int(frequency) / total_count_of_w for frequency in frequencies[:20]]
+        frequencies.reverse()
         x_indexes = np.arange(len(words))
         plt.xticks(x_indexes, words)
-        plt.bar(x_indexes, frequency, color='#006a71', label='Most frequent {} words'.format(msg_type))
+        plt.bar(x_indexes, frequencies, color='#006a71', label='Most frequent {} words'.format(msg_type))
         plt.xlabel("words")
         plt.ylabel("frequency")
         plt.gca().invert_xaxis()

@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from matplotlib import pyplot as plt
 import csv
 import numpy as np
@@ -25,16 +27,17 @@ def main(file_name, msg_type):
     with open(file_name) as f:
         csv_reader = csv.DictReader(f)
         w_len_dict = {}
-        w_count = 0
         for row in csv_reader:
             w_len = len(row[WORD])
             count_ = int(row[COUNT])
-            w_count += count_
             if w_len in w_len_dict:
                 w_len_dict[w_len] += count_
             else:
                 w_len_dict[w_len] = count_
 
+    total_w_sum = sum(w_len_dict.values())
+    w_len_dict = {w_len[0]: w_len[1] / total_w_sum for w_len in w_len_dict.items()}
+    w_len_dict = OrderedDict(sorted(w_len_dict.items(), key=lambda x: x[1], reverse=True))
     plt.style.use('fivethirtyeight')
     plt.title(TITLE.format(msg_type))
     words = w_len_dict.keys()
