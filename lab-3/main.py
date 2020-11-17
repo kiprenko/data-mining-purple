@@ -1,12 +1,12 @@
 import math
+import sys
 from random import randint
 from random import seed
 
-from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import sys
+from matplotlib import cm
 
 seed(1)
 
@@ -40,7 +40,6 @@ def calculate_centers(_clusters):
             xy += dot[1]
         _dots_count = len(_cluster)
         _centers.append((xs / _dots_count, xy / _dots_count))
-    _centers.sort()
     return _centers
 
 
@@ -54,9 +53,11 @@ def spread_dots_bw_clusters(_data_set, _centers, _clusters):
             _clusters[_dists_to_centers.index(min(_dists_to_centers))].append((_x, _y))
 
 
-def draw_plot(_clusters, _colors):
+def draw_plot(_clusters, _colors, _centers):
     for _i, _cluster in enumerate(_clusters):
         plt.scatter([_dot[0] for _dot in _cluster], [_dot[1] for _dot in _cluster], color=_colors[_i])
+    for _center in _centers:
+        plt.scatter(_center[0], _center[1], c='black', s=30)
     plt.show()
 
 
@@ -68,10 +69,9 @@ def main():
     centers = generate_centers(data_set, clusters_count)
     clusters = [[] for _ in range(clusters_count)]
     spread_dots_bw_clusters(data_set, centers, clusters)
-    draw_plot(clusters, colors)
+    draw_plot(clusters, colors, centers)
     i = 0
     while True:
-        centers.sort()
         previous_centers = centers.copy()
         centers = calculate_centers(clusters)
         print(f'Current step {i}, Centers are {centers}.')
@@ -81,7 +81,7 @@ def main():
             break
         clusters = [[] for _ in range(clusters_count)]
         spread_dots_bw_clusters(data_set, centers, clusters)
-    draw_plot(clusters, colors)
+    draw_plot(clusters, colors, centers)
 
 
 if __name__ == '__main__':
