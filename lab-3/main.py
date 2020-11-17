@@ -33,13 +33,13 @@ def euclidean_range(_x, _y, _center):
 def calculate_centers(_clusters):
     _centers = []
     for _cluster in _clusters:
-        xs = 0
-        xy = 0
+        _xs = 0
+        _ys = 0
         for dot in _cluster:
-            xs += dot[0]
-            xy += dot[1]
+            _xs += dot[0]
+            _ys += dot[1]
         _dots_count = len(_cluster)
-        _centers.append((xs / _dots_count, xy / _dots_count))
+        _centers.append((_xs / _dots_count, _ys / _dots_count))
     return _centers
 
 
