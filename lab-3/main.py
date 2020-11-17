@@ -27,7 +27,7 @@ def generate_centers(_data_set, _clusters_count):
 
 
 def euclidean_range(_x, _y, _center):
-    return math.sqrt((_x - _center[0]) ** 2 + (_y - _center[1]) ** 2)
+    return math.dist((_x, _y), _center)
 
 
 def calculate_centers(_clusters):
