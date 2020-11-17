@@ -2,23 +2,22 @@ import math
 from random import randint
 from random import seed
 
+from matplotlib import cm
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import sys
 
 seed(1)
-
-DATA_SET_FILE_NAME = 'points_datasets/s1.txt'
-CLUSTERS_COUNT = 4
-COLORS = ['#f38181', '#fce38a', '#eaffd0', '#95e1d3']
 
 
 def load_dataset(file_name):
     return pd.read_csv(file_name, header=None, delim_whitespace=True, names=['x', 'y'])
 
 
-def generate_centers(_data_set):
+def generate_centers(_data_set, _clusters_count):
     _centers = []
-    for _i in range(CLUSTERS_COUNT):
+    for _i in range(_clusters_count):
         min_x = _data_set['x'].min()
         max_x = _data_set['x'].max()
         min_y = _data_set['y'].min()
@@ -55,18 +54,21 @@ def spread_dots_bw_clusters(_data_set, _centers, _clusters):
             _clusters[_dists_to_centers.index(min(_dists_to_centers))].append((_x, _y))
 
 
-def draw_plot(_clusters):
+def draw_plot(_clusters, _colors):
     for _i, _cluster in enumerate(_clusters):
-        plt.scatter([_dot[0] for _dot in _cluster], [_dot[1] for _dot in _cluster], c=COLORS[_i])
+        plt.scatter([_dot[0] for _dot in _cluster], [_dot[1] for _dot in _cluster], color=_colors[_i])
     plt.show()
 
 
-if __name__ == '__main__':
-    data_set = load_dataset(DATA_SET_FILE_NAME)
-    centers = generate_centers(data_set)
-    clusters = [[] for _ in range(CLUSTERS_COUNT)]
+def main():
+    clusters_count = int(sys.argv[1])
+    data_set_file_name = sys.argv[2]
+    colors = cm.rainbow(np.linspace(0, 1, clusters_count))
+    data_set = load_dataset(data_set_file_name)
+    centers = generate_centers(data_set, clusters_count)
+    clusters = [[] for _ in range(clusters_count)]
     spread_dots_bw_clusters(data_set, centers, clusters)
-    draw_plot(clusters)
+    draw_plot(clusters, colors)
     i = 0
     while True:
         centers.sort()
@@ -77,6 +79,10 @@ if __name__ == '__main__':
         if previous_centers == centers:
             print(f'Program used {i} step(-s) to finish.')
             break
-        clusters = [[] for _ in range(CLUSTERS_COUNT)]
+        clusters = [[] for _ in range(clusters_count)]
         spread_dots_bw_clusters(data_set, centers, clusters)
-    draw_plot(clusters)
+    draw_plot(clusters, colors)
+
+
+if __name__ == '__main__':
+    main()
