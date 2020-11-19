@@ -16,7 +16,7 @@ def main():
     print(f'Started parsing of host {HOST}')
     collect_graph_data()
     page_rank = {k: v for k, v in sorted(nx.pagerank(draw_graph()).items(), key=lambda item: item[1], reverse=True)}
-    print('Page rank' + json.dumps(page_rank, indent=4))
+    print('\nPage rank\n' + json.dumps(page_rank, indent=4))
 
 
 def collect_graph_data():
@@ -27,7 +27,10 @@ def collect_graph_data():
 def parse_site(url='/'):
     VISITED_PAGES.append(url)
     PAGE_DATA[url] = []
-    req_res = req.urlopen(HOST + url)
+    try:
+        req_res = req.urlopen(HOST + url)
+    except:
+        return
     soup = BeautifulSoup(req_res.read(), 'lxml')
     links = soup.find_all('a')
     for link in links:
