@@ -3,7 +3,6 @@ import urllib.request as req
 
 import matplotlib.pyplot as plt
 import networkx as nx
-import validators
 from bs4 import BeautifulSoup
 
 HOST = 'http://thedemosite.co.uk/'
@@ -15,8 +14,7 @@ PAGE_DATA = {}
 def main():
     print(f'Started parsing of host {HOST}')
     collect_graph_data()
-    page_rank = {k: v for k, v in sorted(nx.pagerank(draw_graph()).items(), key=lambda item: item[1], reverse=True)}
-    print('\nPage rank\n' + json.dumps(page_rank, indent=4))
+    draw_graph()
 
 
 def collect_graph_data():
@@ -28,16 +26,17 @@ def parse_site(url='/'):
     VISITED_PAGES.append(url)
     PAGE_DATA[url] = []
     try:
-        req_res = req.urlopen(HOST + url)
+        request = req.Request(HOST + url, headers={'User-Agent': 'Mozilla/5.0'})
+        page = req.urlopen(request)
     except:
         return
-    soup = BeautifulSoup(req_res.read(), 'lxml')
+    soup = BeautifulSoup(page.read(), 'lxml')
     links = soup.find_all('a')
     for link in links:
         url_to_another_page = link.attrs['href']
         if not url_to_another_page.startswith('http') and not url_to_another_page.startswith('javascript'):
             PAGE_DATA[url].append(url_to_another_page)
-            if url_to_another_page not in VISITED_PAGES and validators.url(HOST + url_to_another_page):
+            if url_to_another_page not in VISITED_PAGES:
                 parse_site(url_to_another_page)
 
 
