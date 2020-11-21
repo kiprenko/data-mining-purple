@@ -9,12 +9,7 @@ HOST = 'http://thedemosite.co.uk/'
 PLOT_STYLE = 'fivethirtyeight'
 VISITED_PAGES = []
 PAGE_DATA = {}
-
-
-def main():
-    print(f'Started parsing of host {HOST}')
-    collect_graph_data()
-    draw_graph()
+D = 0.85
 
 
 def collect_graph_data():
@@ -27,10 +22,10 @@ def parse_site(url='/'):
     PAGE_DATA[url] = []
     try:
         request = req.Request(HOST + url, headers={'User-Agent': 'Mozilla/5.0'})
-        page = req.urlopen(request)
+        req_res = req.urlopen(request)
     except:
         return
-    soup = BeautifulSoup(page.read(), 'lxml')
+    soup = BeautifulSoup(req_res.read(), 'lxml')
     links = soup.find_all('a')
     for link in links:
         url_to_another_page = link.attrs['href']
@@ -43,11 +38,10 @@ def parse_site(url='/'):
 def draw_graph():
     page_graph = nx.DiGraph(pairs_list())
     pos = nx.spring_layout(page_graph)
-    nx.draw_networkx(page_graph, pos)
+    nx.draw_networkx(page_graph, pos, with_labels=False)
     plt.title(f'Graph of pages at {HOST}')
     plt.style.use(PLOT_STYLE)
     plt.show()
-    return page_graph
 
 
 def pairs_list():
@@ -56,6 +50,12 @@ def pairs_list():
         for target_page in page[1]:
             list_.append((page[0], target_page))
     return list_
+
+
+def main():
+    print(f'Started parsing of host {HOST}')
+    collect_graph_data()
+    draw_graph()
 
 
 if __name__ == '__main__':
