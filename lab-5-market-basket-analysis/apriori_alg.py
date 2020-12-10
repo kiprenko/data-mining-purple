@@ -1,10 +1,15 @@
 import json
 from collections import Counter
+import time
 
 import pandas as pd
 
-INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
-SUPPORT = 1000
+INPUT_FILE_NAME = 'test.XLSX'
+SUPPORT_LEVEL = 2
+
+
+def get_products(df):
+    return [str(product) for product in list(df.StockCode.unique())]
 
 
 def get_buckets(df):
@@ -16,40 +21,87 @@ def get_buckets(df):
     return buckets_
 
 
-def get_one_elem_candidates(df):
-    goods = dict(Counter(df['StockCode']))
-    return [g for g, c in goods.items() if c > SUPPORT]
+def filter_one_elem_cand(products, buckets):
+    one_elem_candidates = {}
+    for customer_id, bucket in buckets.items():
+        for product in bucket:
+            if product in one_elem_candidates:
+                one_elem_candidates[product] += 1
+            else:
+                one_elem_candidates[product] = 1
+
+    for product, count in one_elem_candidates.items():
+        try:
+            if count < SUPPORT_LEVEL:
+                products.remove(product)
+        except ValueError:
+            pass
+    return products
 
 
-def get_two_elem_candidates(one_elem_candidates, buckets):
-    two_elem_candidates = []
-    one_elem_candidates_len = len(one_elem_candidates)
-    for i in range(0, one_elem_candidates_len):
-        for j in range(i + 1, one_elem_candidates_len - 1):
-            candidates_i_ = one_elem_candidates[i]
-            two_elem_candidates.append([candidates_i_, one_elem_candidates[j]])
-    two_elem_candidates_counter = Counter()
+def get_product_pairs(products):
+    product_pairs = []
+    products_len = len(products)
+    for i in range(products_len - 1):
+        for j in range(i + 1, products_len):
+            product_pairs.append(tuple([products[i], products[j]]))
+    return product_pairs
+
+
+def filter_two_elem_cand(products, buckets):
+    products_pairs = get_product_pairs(products)
+    two_elem_candidates = {}
     for bucket in buckets.values():
-        for candidate_pair in two_elem_candidates:
-            if candidate_pair[0] in bucket and candidate_pair[1] in bucket:
-                pair_key = str(candidate_pair)
-                if pair_key in two_elem_candidates_counter:
-                    two_elem_candidates_counter[pair_key] += 1
+        for product_pair in products_pairs:
+            if product_pair[0] in bucket and product_pair[1] in bucket:
+                if product_pair in two_elem_candidates:
+                    two_elem_candidates[product_pair] += 1
                 else:
-                    two_elem_candidates_counter[pair_key] = 1
-    return dict(two_elem_candidates_counter)
+                    two_elem_candidates[product_pair] = 1
+    products = set()
+    for two_elem_candidate, count in Counter(two_elem_candidates).items():
+        if count >= SUPPORT_LEVEL:
+            products.add(two_elem_candidate[0])
+            products.add(two_elem_candidate[1])
+    return list(products)
+
+
+def get_product_triples(products):
+    product_triples = []
+    products_len = len(products)
+    for i in range(products_len - 2):
+        for j in range(i + 1, products_len):
+            for k in range(j + 1, products_len):
+                product_triples.append(tuple([products[i], products[j], products[k]]))
+    return product_triples
+
+
+def filter_three_elem_cand(result, buckets):
+    products_triples = get_product_triples(result)
+    three_elem_candidates = {}
+    for bucket in buckets.values():
+        for product_triple in products_triples:
+            if product_triple[0] in bucket and product_triple[1] in bucket and product_triple[2]:
+                if product_triple in three_elem_candidates:
+                    three_elem_candidates[product_triple] += 1
+                else:
+                    three_elem_candidates[product_triple] = 1
+    result = {}
+    for candidate_triple, count in three_elem_candidates.items():
+        if count >= SUPPORT_LEVEL:
+            result[str(candidate_triple)] = count
+    return result
 
 
 def main():
+    start = time.time()
     df = pd.read_excel(INPUT_FILE_NAME)
     buckets = get_buckets(df)
-    print('BUCKETS:\n', json.dumps(buckets, indent=4))
-    one_elem_candidates = get_one_elem_candidates(df)
-    print('ONE ELEMENT CANDIDATES LENGTH IS', len(one_elem_candidates))
-    # print('ONE ELEMENT CANDIDATES:\n', json.dumps(one_elem_candidates, indent=4))
-    two_elem_candidates = get_two_elem_candidates(one_elem_candidates, buckets)
-    print('TWO ELEMENTS CANDIDATES LENGTH IS', len(two_elem_candidates))
-    # print('TWO ELEMENTS CANDIDATES:\n', json.dumps(two_elem_candidates, indent=4))
+    products = get_products(df)
+    products = filter_one_elem_cand(products, buckets)
+    products = filter_two_elem_cand(products, buckets)
+    print(json.dumps(filter_three_elem_cand(products, buckets), indent=4))
+    print('Time spent: ', time.time() - start)
 
 
 if __name__ == '__main__':
