@@ -6,8 +6,8 @@ from random import seed
 import pandas as pd
 
 seed(1)
-# INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
-INPUT_FILE_NAME = 'test.XLSX'
+INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
+# INPUT_FILE_NAME = 'test.XLSX'
 PERCENT = 0.05
 K = 3
 
@@ -31,7 +31,7 @@ def population_formation(purchases, n_pop):
                 random_numbers.add(rand_num)
                 break
         chromosome = generate_chromosome(purchase)
-        chromosome.append(get_fitness(purchases, chromosome))
+        chromosome.append(fitness(purchases, chromosome))
         chromosomes.append(chromosome)
     return chromosomes
 
@@ -49,8 +49,11 @@ def generate_chromosome(purchase):
     return chromosome
 
 
-def get_fitness(purchases, chromosome):
+def fitness(purchases, chromosome):
     fitness = 0
+    for i in range(len(purchases)):
+        if all(gene in str(purchases[i]) for gene in chromosome):
+            fitness += 1
     return fitness
 
 
