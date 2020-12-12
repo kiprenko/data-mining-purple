@@ -10,6 +10,8 @@ INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
 # INPUT_FILE_NAME = 'test.XLSX'
 PERCENT = 0.05
 K = 3
+GENERATIONS_COUNT = 10
+TOURNAMENTS_COUNT = 10
 
 
 def get_purchases(df):
@@ -17,6 +19,10 @@ def get_purchases(df):
     for customer_id in df.CustomerID.unique():
         purchases.append(list(df[df.CustomerID == customer_id].StockCode))
     return purchases
+
+
+def get_products(df):
+    return [str(product) for product in list(df.StockCode.unique())]
 
 
 def population_formation(purchases, n_pop):
@@ -50,18 +56,36 @@ def generate_chromosome(purchase):
 
 
 def fitness(purchases, chromosome):
-    fitness = 0
+    fitness_ = 0
     for i in range(len(purchases)):
         if all(gene in str(purchases[i]) for gene in chromosome):
-            fitness += 1
-    return fitness
+            fitness_ += 1
+    return fitness_
+
+
+def tournament(chromosomes):
+    pass
+
+
+def mutation(chromosomes, purchases, products):
+    pass
+
+
+def genetic_algorithm(chromosomes, purchases, products):
+    for i in range(GENERATIONS_COUNT):
+        for j in range(TOURNAMENTS_COUNT):
+            tournament(chromosomes)
+        mutation(chromosomes, purchases, products)
+    return chromosomes
 
 
 def main():
     df = pd.read_excel(INPUT_FILE_NAME)
     purchases = get_purchases(df)
+    products = get_products(df)
     n_pop = int(len(purchases) * PERCENT)
     chromosomes = population_formation(purchases, n_pop)
+    genetic_algorithm(chromosomes, purchases, products)
     print(json.dumps(chromosomes, indent=4))
 
 
