@@ -12,46 +12,53 @@ PERCENT = 0.05
 K = 3
 
 
-def get_buckets(df):
-    buckets_ = []
+def get_purchases(df):
+    purchases = []
     for customer_id in df.CustomerID.unique():
-        buckets_.append(list(df[df.CustomerID == customer_id].StockCode))
-    return buckets_
+        purchases.append(list(df[df.CustomerID == customer_id].StockCode))
+    return purchases
 
 
-def population_formation(buckets, n_pop):
+def population_formation(purchases, n_pop):
     chromosomes = []
     random_numbers = set()
-    buckets_len = len(buckets)
+    purchases_len = len(purchases)
     for i in range(n_pop):
         while True:
-            rand_num = randint(0, buckets_len - 1)
-            bucket = buckets[rand_num]
-            if rand_num not in random_numbers and len(bucket) >= K:
+            rand_num = randint(0, purchases_len - 1)
+            purchase = purchases[rand_num]
+            if rand_num not in random_numbers and len(purchase) >= K:
                 random_numbers.add(rand_num)
                 break
-        chromosomes.append(generate_chromosome(bucket))
+        chromosome = generate_chromosome(purchase)
+        chromosome.append(get_fitness(purchases, chromosome))
+        chromosomes.append(chromosome)
     return chromosomes
 
 
-def generate_chromosome(bucket):
+def generate_chromosome(purchase):
     chromosome = []
-    bucket_len = len(bucket)
+    purchase_len = len(purchase)
     for i in range(K):
         while True:
-            rand_num = randint(0, bucket_len - 1)
-            gene = str(bucket[rand_num])
+            rand_num = randint(0, purchase_len - 1)
+            gene = str(purchase[rand_num])
             if gene not in chromosome:
                 chromosome.append(gene)
                 break
     return chromosome
 
 
+def get_fitness(purchases, chromosome):
+    fitness = 0
+    return fitness
+
+
 def main():
     df = pd.read_excel(INPUT_FILE_NAME)
-    buckets = get_buckets(df)
-    n_pop = int(len(buckets) * PERCENT)
-    chromosomes = population_formation(buckets, n_pop)
+    purchases = get_purchases(df)
+    n_pop = int(len(purchases) * PERCENT)
+    chromosomes = population_formation(purchases, n_pop)
     print(json.dumps(chromosomes, indent=4))
 
 
