@@ -155,7 +155,8 @@ def main():
     n_pop = int(len(purchases) * PERCENT)
     chromosomes = population_formation(purchases, n_pop)
     chromosomes = genetic_algorithm(chromosomes, purchases, products)
-    print('Final population\n', json.dumps(chromosomes, indent=4))
+    chromosomes.sort(reverse=True, key=lambda c: c[K])
+    print('Final population\n', json.dumps(chromosomes[:10], indent=4))
 
 
 if __name__ == '__main__':
