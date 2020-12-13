@@ -2,7 +2,6 @@ import json
 import time
 from random import randint
 from random import seed
-from collections import Counter
 
 import pandas as pd
 
@@ -10,8 +9,9 @@ seed(1)
 INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
 PERCENT = 0.05
 K = 3
-GENERATIONS_COUNT = 10
-TOURNAMENTS_COUNT = 10
+GENERATIONS_COUNT = 100
+TOURNAMENTS_COUNT = 20
+MUTATION_NUMBER = 77
 
 
 def get_purchases(df):
@@ -70,7 +70,7 @@ def genetic_algorithm(chromosomes, purchases, products):
     for i in range(GENERATIONS_COUNT):
         for j in range(TOURNAMENTS_COUNT):
             tournament(chromosomes, purchases)
-        mutation(chromosomes, purchases, products)
+        mutation(chromosomes, products, purchases)
     return chromosomes
 
 
@@ -105,6 +105,10 @@ def get_rand_chromosome(chromosomes, chromosomes_len, rand_nums):
 def crossbreeding(parents, purchases, chromosomes):
     parent_1 = parents[0]
     parent_2 = parents[1]
+    pos_1 = parent_1[K + 1]
+    pos_2 = parent_2[K + 1]
+    del parent_1[K + 1]
+    del parent_2[K + 1]
     child_1 = parent_1.copy()
     child_2 = parent_2.copy()
     crosses = 0
@@ -119,11 +123,29 @@ def crossbreeding(parents, purchases, chromosomes):
             crosses += 1
     child_1[K] = fitness(purchases, child_1)
     child_2[K] = fitness(purchases, child_2)
-    print('result')
+    if parent_1[K] < child_1[K] and is_chromosome_unique(child_1, chromosomes):
+        chromosomes[pos_1] = child_1
+    if parent_2[K] < child_2[K] and is_chromosome_unique(child_2, chromosomes):
+        chromosomes[pos_2] = child_2
 
 
-def mutation(chromosomes, purchases, products):
-    print('hello')
+def is_chromosome_unique(chromosome, chromosomes):
+    for i in range(len(chromosomes)):
+        if all(chromosome[j] in chromosomes[i] for j in range(K)):
+            return False
+    return True
+
+
+def mutation(chromosomes, products, purchases):
+    for i in range(len(chromosomes)):
+        if MUTATION_NUMBER == randint(1, 100):
+            mutated_chromosome = chromosomes[i].copy()
+            gene_pos = randint(0, K - 1)
+            new_gene = products[randint(0, len(products))]
+            mutated_chromosome[gene_pos] = new_gene
+            if is_chromosome_unique(mutated_chromosome, chromosomes):
+                mutated_chromosome[K] = fitness(purchases, mutated_chromosome)
+                chromosomes[i] = mutated_chromosome
 
 
 def main():
@@ -133,7 +155,7 @@ def main():
     n_pop = int(len(purchases) * PERCENT)
     chromosomes = population_formation(purchases, n_pop)
     chromosomes = genetic_algorithm(chromosomes, purchases, products)
-    print(json.dumps(chromosomes, indent=4))
+    print('Final population\n', json.dumps(chromosomes, indent=4))
 
 
 if __name__ == '__main__':
