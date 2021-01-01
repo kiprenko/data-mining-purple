@@ -1,8 +1,8 @@
 # data-mining-purple
-This repository stores my simple data-mining scripts.
-These tasks were implemented in the scope of my university study at the 4th course.
-The repository contains only Python scripts.
-You may need additional (very popular and easy to install) Python libraries. Such as:
+
+This repository stores my simple data-mining scripts. These tasks were implemented in the scope of my university study
+at the 4th course. The repository contains only Python scripts. You may need additional (very popular and easy to
+install) Python libraries. Such as:
 
 * matplotlib
 * networkx
@@ -10,10 +10,13 @@ You may need additional (very popular and easy to install) Python libraries. Suc
 * nltk
 * pandas
 
-I won't list all of them here, because I'm sure you will figure out what libraries you require and how to install them on your own.<br>
-The "purple" word was added to the repository name just to differ the repository from my other possible data-mining repositories.
+I won't list all of them here, because I'm sure you will figure out what libraries you require and how to install them
+on your own.<br>
+The "purple" word was added to the repository name just to differ the repository from my other possible data-mining
+repositories.
 
 ## Description
+
 The repository consist of five parts:
 
 1. data-statistical-analysis
@@ -24,9 +27,44 @@ The repository consist of five parts:
 
 All these parts have their own folder where you find everything you need to run the scripts.
 
+### data-statistical-analysis
+
+In this part I made a data statistical analysis of the file `sms-spam-corpus.csv`. This file contains spam and ham
+sms. <br>
+The part consist of three sub-parts:
+
+1. [Plot on the graphs the distribution of word length for each category and the average word length](lab-1-data-statistical-analysis/task_1_word_len_plot.py)
+2. [Graph the distribution of message lengths for each category and the average message length](lab-1-data-statistical-analysis/task_2_msg_len_plot.py)
+3. [Conduct a frequency analysis of the appearance of words for two categories. Display on the graphs 20 words that are most common for each category separately](lab-1-data-statistical-analysis/task_3_top_20_words_plot.py)
+
+**You must run the [data_processor.py](lab-1-data-statistical-analysis/data_processor.py) before running the other
+scripts.**<br>
+
+`python data_processor.py`
+
+Then, choose the part you need and ran the script. For example, I will run the first sub-part:<br>
+
+`python task_1_word_len_plot.py`
+
+After this, the script will show two plots (for ham and for spam words).
+
+![ham-words-plot](docs/data-statistical-analysis/task-1/ham_words_length.png)
+
+![ham-words-plot](docs/data-statistical-analysis/task-1/spam_words_length.png)
+
+You can find the average word length in the console (terminal) output:
+
+```
+Average word length for spam is 5.339024390243902
+Average word length for ham is 5.131272645653637
+```
+
+Also, all three sub-parts scripts save their plot in the specific [folder](lab-1-data-statistical-analysis/output).
+
 ### page-rank
-The script builds a page graph of the site and calculates the site's pages rank.
-You can run the script by the next command:<br>
+
+The script builds a page graph of the site and calculates the site's pages rank. You can run the script by the next
+command:<br>
 
 `python main.py http://thedemosite.co.uk/`
 

@@ -54,6 +54,5 @@ def draw_chart(dict, msg_type):
     print('Average {} message count = {}'.format(msg_type, str(calculate_avg(dict))))
 
 
-# Вивести на графіках розподіл по довжині повідомлень для кожної категорії і середню довжину повідомлення.
 if __name__ == '__main__':
     main()

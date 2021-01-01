@@ -50,7 +50,6 @@ def main(file_name, msg_type):
     print('Average word length for {} is '.format(msg_type) + str(calculate_avg(w_len_dict)))
 
 
-# Вивести на графіках розподіл по довжині слів для кожної категорії і середню довжину слів.
 if __name__ == '__main__':
     main(SPAM_FILE, SPAM)
     main(HAM_FILE, HAM)
