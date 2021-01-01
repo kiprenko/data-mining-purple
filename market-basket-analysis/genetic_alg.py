@@ -1,4 +1,5 @@
 import json
+import sys
 import time
 from random import randint
 from random import seed
@@ -6,7 +7,7 @@ from random import seed
 import pandas as pd
 
 seed(1)
-INPUT_FILE_NAME = 'Filtered Online Retail.xlsx'
+INPUT_FILE_NAME = sys.argv[1]
 PERCENT = 0.05
 K = 3
 GENERATIONS_COUNT = 100

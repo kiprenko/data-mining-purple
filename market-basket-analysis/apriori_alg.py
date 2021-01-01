@@ -1,11 +1,12 @@
 import json
+import sys
 from collections import Counter
 import time
 
 import pandas as pd
 
-INPUT_FILE_NAME = 'test.XLSX'
-SUPPORT_LEVEL = 2
+INPUT_FILE_NAME = sys.argv[2]
+SUPPORT_LEVEL = int(sys.argv[1])
 
 
 def get_products(df):

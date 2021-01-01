@@ -169,6 +169,187 @@ The page rank of the pages you will find in the console (terminal) output:<br>
 }
 ```
 
+### market-basket-analysis
+
+In this part I implemented market basket analysis. The analysis may be done
+by [apriori](market-basket-analysis/apriori_alg.py) or by [genetic](market-basket-analysis/genetic_alg.py)
+algorithms.<br>
+
+**CAUTION:** the apriori script executes too long and has a very big impact on the processor. I don't recommend you to
+run it on a big amount of data.<br>
+
+To run the **apriori algorithm** script use the next command:
+
+```commandline
+python apriori_alg.py 2 test.XLSX
+```
+
+Where:
+
+* 2 - support level (you may choose your own value);
+* [test.XLSX](market-basket-analysis/test.XLSX) - the file with purchases data (you may use another file if you want).
+
+After the script execution, you will see the following in your console(terminal):
+
+```json
+{
+  "('84029G', '85123A', '84030E')": 2,
+  "('84029G', '85123A', '84029E')": 2,
+  "('84029G', '85123A', '85014B')": 2,
+  "('84029G', '85123A', '84625A')": 2,
+  "('84029G', '85123A', '85014A')": 2,
+  "('84029G', '85123A', '85099F')": 2,
+  "('84029G', '84029E', '85014B')": 2,
+  "('84029G', '84029E', '84625A')": 2,
+  "('84029G', '84029E', '85014A')": 2,
+  "('84029G', '84029E', '85099F')": 2,
+  "('15056BL', '15056N', '85099B')": 2,
+  "('15056BL', '15056N', '85123A')": 2,
+  "('15056BL', '15056N', '84030E')": 2,
+  "('15056BL', '15056N', '84029E')": 2,
+  "('15056BL', '15056N', '85014B')": 2,
+  "('15056BL', '15056N', '84625A')": 2,
+  "('15056BL', '15056N', '85014A')": 2,
+  "('15056BL', '15056N', '85099F')": 2,
+  "('85099C', '85099B', '85123A')": 3,
+  "('85099C', '85099B', '84030E')": 3,
+  "('85099C', '85099B', '84029E')": 3,
+  "('85099C', '85099B', '85014B')": 3,
+  "('85099C', '85099B', '84625A')": 3,
+  "('85099C', '85099B', '85014A')": 3,
+  "('85099C', '85099B', '85099F')": 3,
+  "('85014B', '85014A', '85099F')": 2,
+  "('85099B', '85123A', '84030E')": 2,
+  "('85099B', '85123A', '84029E')": 2,
+  "('85099B', '85123A', '85014B')": 2,
+  "('85099B', '85123A', '84625A')": 2,
+  "('85099B', '85123A', '85014A')": 2,
+  "('85099B', '85123A', '85099F')": 2,
+  "('85123A', '84030E', '84029E')": 2,
+  "('85123A', '84030E', '85014B')": 2,
+  "('85123A', '84030E', '84625A')": 2,
+  "('85123A', '84030E', '85014A')": 2,
+  "('85123A', '84030E', '85099F')": 2,
+  "('84625C', '84625A', '85014A')": 2,
+  "('84625C', '84625A', '85099F')": 2,
+  "('84625C', '85169B', '15056N')": 2,
+  "('84625C', '85169B', '85099B')": 2,
+  "('84625C', '85169B', '85123A')": 2,
+  "('84625C', '85169B', '84030E')": 2,
+  "('84625C', '85169B', '84029E')": 2,
+  "('84625C', '85169B', '85014B')": 2,
+  "('84625C', '85169B', '84625A')": 2,
+  "('84625C', '85169B', '85014A')": 2,
+  "('84625C', '85169B', '85099F')": 2,
+  "('85231G', '85231B', '84029G')": 2,
+  "('85231G', '85231B', '85099C')": 2,
+  "('85231G', '85231B', '85169B')": 2,
+  "('85231G', '85231B', '15056N')": 2,
+  "('85231G', '85231B', '85099B')": 2,
+  "('85231G', '85231B', '85123A')": 2,
+  "('85231G', '85231B', '84030E')": 2,
+  "('85231G', '85231B', '84029E')": 2,
+  "('85231G', '85231B', '85014B')": 2,
+  "('85231G', '85231B', '84625A')": 2,
+  "('85231G', '85231B', '85014A')": 2,
+  "('85231G', '85231B', '85099F')": 2,
+  "('85231G', '85099B', '85123A')": 2,
+  "('85231G', '85099B', '84030E')": 2,
+  "('85231G', '85099B', '84029E')": 2,
+  "('85231G', '85099B', '85014B')": 2,
+  "('85231G', '85099B', '84625A')": 2,
+  "('85231G', '85099B', '85014A')": 2,
+  "('85231G', '85099B', '85099F')": 2,
+  "('85231B', '85099B', '85123A')": 2,
+  "('85231B', '85099B', '84030E')": 2,
+  "('85231B', '85099B', '84029E')": 2,
+  "('85231B', '85099B', '85014B')": 2,
+  "('85231B', '85099B', '84625A')": 2,
+  "('85231B', '85099B', '85014A')": 2,
+  "('85231B', '85099B', '85099F')": 2
+}
+```
+
+Where the key is a triple of products, and the value is the count of this triple popularity in the baskets.
+
+To run the **genetic algorithm** script use the next command:
+
+```commandline
+python genetic_alg.py "Filtered Online Retail.xlsx"
+```
+
+Where:
+
+* [Filtered Online Retail.xlsx](market-basket-analysis/Filtered%20Online%20Retail.xlsx) - the file with purchases data (
+  you may use another file if you want).
+  
+After the script execution, you will see the TOP-10 product triples in your console(terminal):
+
+```json
+ [
+    [
+        "20728",
+        "20726",
+        "22382",
+        180
+    ],
+    [
+        "21928",
+        "85099B",
+        "22386",
+        130
+    ],
+    [
+        "22423",
+        "22697",
+        "47566",
+        126
+    ],
+    [
+        "85099C",
+        "23199",
+        "85099B",
+        123
+    ],
+    [
+        "22423",
+        "22697",
+        "85123A",
+        104
+    ],
+    [
+        "23199",
+        "23344",
+        "22382",
+        86
+    ],
+    [
+        "20728",
+        "20726",
+        "21212",
+        84
+    ],
+    [
+        "21928",
+        "85099B",
+        "20713",
+        84
+    ],
+    [
+        "22423",
+        "22697",
+        "21212",
+        78
+    ],
+    [
+        "20728",
+        "20726",
+        "22086",
+        78
+    ]
+]
+```
+
 ## Author :panda_face:
 
 - Name: Evgeniy Kiprenko
