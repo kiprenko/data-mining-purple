@@ -61,6 +61,54 @@ Average word length for ham is 5.131272645653637
 
 Also, all three sub-parts scripts save their plot in the specific [folder](lab-1-data-statistical-analysis/output).
 
+### naive-bayes-classifier
+
+This part calculates message spam and ham possibility using training data
+in [ham_words_count.csv](lab-2-naive-bayes-classifier/ham_words_count.csv)
+and [spam_words_count.csv](lab-2-naive-bayes-classifier/spam_words_count.csv) files.
+
+Run the script by the next command:
+```
+python main.py
+```
+Then, you will see the next output:
+
+```
+Welcome to Saint-Tropez
+Spam file name is "spam_words_count.csv"
+Ham file name is "ham_words_count.csv"
+Type your message:
+```
+
+You need to specify your message here. For example:
+
+```
+Welcome to Saint-Tropez
+Spam file name is "spam_words_count.csv"
+Ham file name is "ham_words_count.csv"
+Type your message: Hello, world! How it's going?
+```
+
+After this you will see the result:
+
+```
+Preparing message...
+Prepared message: "['world', 'go']"
+Loading training data from files to memory...
+Training data was successfully loaded
+Calculating probability for both spam and ham...
+Spam probability is "2.0651496689859363e-08"
+Ham probability is "3.906686353734016e-08"
+Making normalization...
+Normalized:
+Spam probability is "0.3458148651652589"
+Ham probability is "0.6541851348347411"
+Classifying the message...
+The message "Hello, world! How it's going?" is a HAM
+```
+
+So, in the example above our classifier thinks that the message "Hello, world! How it's going?" is a ham.
+
 ### page-rank
 
 The script builds a page graph of the site and calculates the site's pages rank. You can run the script by the next
