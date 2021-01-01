@@ -22,7 +22,7 @@ def generate_centers(_data_set, _clusters_count):
         max_x = _data_set['x'].max()
         min_y = _data_set['y'].min()
         max_y = _data_set['y'].max()
-        _centers.append((randint(min_x, max_x), randint(min_y, max_y)))
+        _centers.append((randint(int(min_x), int(max_x)), randint(int(min_y), int(max_y))))
     return _centers
 
 

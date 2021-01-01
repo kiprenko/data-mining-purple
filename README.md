@@ -64,13 +64,15 @@ Also, all three sub-parts scripts save their plot in the specific [folder](lab-1
 ### naive-bayes-classifier
 
 This part calculates message spam and ham possibility using training data
-in [ham_words_count.csv](lab-2-naive-bayes-classifier/ham_words_count.csv)
-and [spam_words_count.csv](lab-2-naive-bayes-classifier/spam_words_count.csv) files.
+in [ham_words_count.csv](naive-bayes-classifier/ham_words_count.csv)
+and [spam_words_count.csv](naive-bayes-classifier/spam_words_count.csv) files.
 
 Run the script by the next command:
+
 ```
 python main.py
 ```
+
 Then, you will see the next output:
 
 ```
@@ -109,6 +111,38 @@ The message "Hello, world! How it's going?" is a HAM
 
 So, in the example above our classifier thinks that the message "Hello, world! How it's going?" is a ham.
 
+### k-means-method
+
+In this part, I implemented k-means method for a 2-D array of dots. The example input files you find in
+the [points_datasets](lab-3-k-means-method/points_datasets) folder.<br>
+To run the script use the next command:
+
+```
+python main.py 7 points_datasets/s1.txt
+```
+
+Where:
+
+* 7 - the count of clusters I need (you may choose your own count);
+* [s1.txt](lab-3-k-means-method/points_datasets/s1.txt) - the file with points data (you may use another file if you
+  want).
+
+After the execution, you will see the first plot, on which centers were randomly selected, and the dots were spread
+between them.
+
+![random-placed-centers.png](docs/k-means/k-means-random-placed-centers.png)
+
+Close this plot and the program will start the classification. After the finish, the program will show you the final
+plot.
+
+![result.png](docs/k-means/k-means-result.png)
+
+The count of steps needed to finish you will find in the console (terminal) output:
+
+```bash
+Program used 16 step(-s) to finish.
+```
+
 ### page-rank
 
 The script builds a page graph of the site and calculates the site's pages rank. You can run the script by the next
@@ -122,16 +156,16 @@ For our example, you will see the next graph
 
 The page rank of the pages you will find in the console (terminal) output:<br>
 
-```
+```json
 {
-    "/": 0.018750000000000003,
-    "index.php": 0.17862779158724276,
-    "thedatabase.php": 0.17862779158724276,
-    "addauser.php": 0.17862779158724276,
-    "login.php": 0.17862779158724276,
-    "getyourowndbonline.php": 0.17862779158724273,
-    "addausercode.php": 0.044055521031893,
-    "logincode.php": 0.044055521031893
+  "/": 0.018750000000000003,
+  "index.php": 0.17862779158724276,
+  "thedatabase.php": 0.17862779158724276,
+  "addauser.php": 0.17862779158724276,
+  "login.php": 0.17862779158724276,
+  "getyourowndbonline.php": 0.17862779158724273,
+  "addausercode.php": 0.044055521031893,
+  "logincode.php": 0.044055521031893
 }
 ```
 
@@ -139,5 +173,4 @@ The page rank of the pages you will find in the console (terminal) output:<br>
 
 - Name: Evgeniy Kiprenko
 - Email: zhenyakiprenko@gmail.com
-- [LinkedIn](https://www.linkedin.com/in/evgeniy-kiprenko/)
-- [Telegram](https://t.me/Jus7XV)
+- [LinkedIn](https://www.linkedin.com/in/kiprenko/)
