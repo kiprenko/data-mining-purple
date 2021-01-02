@@ -33,11 +33,11 @@ In this part I made a data statistical analysis of the file `sms-spam-corpus.csv
 sms. <br>
 The part consist of three sub-parts:
 
-1. [Plot on the graphs the distribution of word length for each category and the average word length](lab-1-data-statistical-analysis/task_1_word_len_plot.py)
-2. [Graph the distribution of message lengths for each category and the average message length](lab-1-data-statistical-analysis/task_2_msg_len_plot.py)
-3. [Conduct a frequency analysis of the appearance of words for two categories. Display on the graphs 20 words that are most common for each category separately](lab-1-data-statistical-analysis/task_3_top_20_words_plot.py)
+1. [Plot on the graphs the distribution of word length for each category and the average word length](data-statistical-analysis/task_1_word_len_plot.py)
+2. [Graph the distribution of message lengths for each category and the average message length](data-statistical-analysis/task_2_msg_len_plot.py)
+3. [Conduct a frequency analysis of the appearance of words for two categories. Display on the graphs 20 words that are most common for each category separately](data-statistical-analysis/task_3_top_20_words_plot.py)
 
-**You must run the [data_processor.py](lab-1-data-statistical-analysis/data_processor.py) before running the other
+**You must run the [data_processor.py](data-statistical-analysis/data_processor.py) before running the other
 scripts.**<br>
 
 `python data_processor.py`
@@ -59,7 +59,7 @@ Average word length for spam is 5.339024390243902
 Average word length for ham is 5.131272645653637
 ```
 
-Also, all three sub-parts scripts save their plot in the specific [folder](lab-1-data-statistical-analysis/output).
+Also, all three sub-parts scripts save their plot in the specific [folder](data-statistical-analysis/output).
 
 ### naive-bayes-classifier
 
@@ -114,7 +114,7 @@ So, in the example above our classifier thinks that the message "Hello, world! H
 ### k-means-method
 
 In this part, I implemented k-means method for a 2-D array of dots. The example input files you find in
-the [points_datasets](lab-3-k-means-method/points_datasets) folder.<br>
+the [points_datasets](k-means-method/points_datasets) folder.<br>
 To run the script use the next command:
 
 ```
@@ -124,7 +124,7 @@ python main.py 7 points_datasets/s1.txt
 Where:
 
 * 7 - the count of clusters I need (you may choose your own count);
-* [s1.txt](lab-3-k-means-method/points_datasets/s1.txt) - the file with points data (you may use another file if you
+* [s1.txt](k-means-method/points_datasets/s1.txt) - the file with points data (you may use another file if you
   want).
 
 After the execution, you will see the first plot, on which centers were randomly selected, and the dots were spread
@@ -350,7 +350,7 @@ After the script execution, you will see the TOP-10 product triples in your cons
 ]
 ```
 
-## Author :panda_face:
+## Author 🦝
 
 - Name: Evgeniy Kiprenko
 - Email: zhenyakiprenko@gmail.com
