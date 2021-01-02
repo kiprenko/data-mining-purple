@@ -19,15 +19,17 @@ repositories.
 
 The repository consist of five parts:
 
-1. data-statistical-analysis
-2. naive-bayes-classifier
-3. k-means-method
-4. page-rank
-5. market-basket-analysis
+1. [data-statistical-analysis](README.md#data-statistical-analysis)
+2. [naive-bayes-classifier](README.md#naive-bayes-classifier)
+3. [k-means-method](README.md#k-means-method)
+4. [page-rank](README.md#page-rank)
+5. [market-basket-analysis](README.md#market-basket-analysis)
 
 All these parts have their own folder where you find everything you need to run the scripts.
 
 ### data-statistical-analysis
+
+[Open folder](data-statistical-analysis)
 
 In this part I made a data statistical analysis of the file `sms-spam-corpus.csv`. This file contains spam and ham
 sms. <br>
@@ -62,6 +64,8 @@ Average word length for ham is 5.131272645653637
 Also, all three sub-parts scripts save their plot in the specific [folder](data-statistical-analysis/output).
 
 ### naive-bayes-classifier
+
+[Open folder](naive-bayes-classifier)
 
 This part calculates message spam and ham possibility using training data
 in [ham_words_count.csv](naive-bayes-classifier/ham_words_count.csv)
@@ -113,6 +117,8 @@ So, in the example above our classifier thinks that the message "Hello, world! H
 
 ### k-means-method
 
+[Open folder](k-means-method)
+
 In this part, I implemented k-means method for a 2-D array of dots. The example input files you find in
 the [points_datasets](k-means-method/points_datasets) folder.<br>
 To run the script use the next command:
@@ -124,8 +130,7 @@ python main.py 7 points_datasets/s1.txt
 Where:
 
 * 7 - the count of clusters I need (you may choose your own count);
-* [s1.txt](k-means-method/points_datasets/s1.txt) - the file with points data (you may use another file if you
-  want).
+* [s1.txt](k-means-method/points_datasets/s1.txt) - the file with points data (you may use another file if you want).
 
 After the execution, you will see the first plot, on which centers were randomly selected, and the dots were spread
 between them.
@@ -144,6 +149,8 @@ Program used 16 step(-s) to finish.
 ```
 
 ### page-rank
+
+[Open folder](page-rank)
 
 The script builds a page graph of the site and calculates the site's pages rank. You can run the script by the next
 command:<br>
@@ -170,6 +177,8 @@ The page rank of the pages you will find in the console (terminal) output:<br>
 ```
 
 ### market-basket-analysis
+
+[Open folder](market-basket-analysis)
 
 In this part I implemented market basket analysis. The analysis may be done
 by [apriori](market-basket-analysis/apriori_alg.py) or by [genetic](market-basket-analysis/genetic_alg.py)
@@ -280,73 +289,73 @@ python genetic_alg.py "Filtered Online Retail.xlsx"
 
 Where:
 
-* [Filtered Online Retail.xlsx](market-basket-analysis/Filtered%20Online%20Retail.xlsx) - the file with purchases data (
-  you may use another file if you want).
-  
+* [Filtered Online Retail.xlsx](market-basket-analysis/Filtered%20Online%20Retail.xlsx) - the file with purchases data 
+  (you may use another file if you want).
+
 After the script execution, you will see the TOP-10 product triples in your console(terminal):
 
 ```json
  [
-    [
-        "20728",
-        "20726",
-        "22382",
-        180
-    ],
-    [
-        "21928",
-        "85099B",
-        "22386",
-        130
-    ],
-    [
-        "22423",
-        "22697",
-        "47566",
-        126
-    ],
-    [
-        "85099C",
-        "23199",
-        "85099B",
-        123
-    ],
-    [
-        "22423",
-        "22697",
-        "85123A",
-        104
-    ],
-    [
-        "23199",
-        "23344",
-        "22382",
-        86
-    ],
-    [
-        "20728",
-        "20726",
-        "21212",
-        84
-    ],
-    [
-        "21928",
-        "85099B",
-        "20713",
-        84
-    ],
-    [
-        "22423",
-        "22697",
-        "21212",
-        78
-    ],
-    [
-        "20728",
-        "20726",
-        "22086",
-        78
-    ]
+  [
+    "20728",
+    "20726",
+    "22382",
+    180
+  ],
+  [
+    "21928",
+    "85099B",
+    "22386",
+    130
+  ],
+  [
+    "22423",
+    "22697",
+    "47566",
+    126
+  ],
+  [
+    "85099C",
+    "23199",
+    "85099B",
+    123
+  ],
+  [
+    "22423",
+    "22697",
+    "85123A",
+    104
+  ],
+  [
+    "23199",
+    "23344",
+    "22382",
+    86
+  ],
+  [
+    "20728",
+    "20726",
+    "21212",
+    84
+  ],
+  [
+    "21928",
+    "85099B",
+    "20713",
+    84
+  ],
+  [
+    "22423",
+    "22697",
+    "21212",
+    78
+  ],
+  [
+    "20728",
+    "20726",
+    "22086",
+    78
+  ]
 ]
 ```
 
